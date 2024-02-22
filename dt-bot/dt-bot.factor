@@ -21,20 +21,25 @@ IN: dt-bot
 
 : respond-ack ( json -- )
     [
-        code-of "Running `%s`………" sprintf
-        "content" swap 2array 1array >hashtable
-        "data" swap 2array "type" 4 2array 2array >hashtable
+        [
+            4 "type" ,,
+            [
+                code-of "Running `%s`………" sprintf
+                "content" ,,
+            ] H{ } make "data" ,,
+        ] H{ } make
     ]
     [ "id" of ] [ "token" of ] tri
     create-interaction-response ;
 
 : finalize-response ( json result -- )
-    [ dup [ user-id-of ] [ code-of ] bi ] dip
-    "<@%s> ran `%s`, result:\n```\n%s\n```" sprintf
-    "content" swap 2array
-    [ dup user-id-of 1array "users" swap 2array 1array >hashtable "allowed_mentions" swap 2array ] dip
-    2array >hashtable
-    dup unparse gprint-flush
+    [
+        [ dup [ user-id-of ] [ code-of ] bi ] dip
+        "<@%s> ran `%s`, result:\n```\n%s\n```" sprintf
+        "content" ,,
+        [ dup user-id-of 1array "users" ,, ] H{ } make
+        "allowed_mentions" ,,
+    ] H{ } make
     swap
     "token" of
     [ discord-bot-config get application-id>> ] dip

@@ -5,7 +5,6 @@ MAIN: [
     discord-bot-config new
     "APPLICATION_ID" os-env >>application-id
     "TOKEN" os-env >>token
-    2147483648 >>permissions
     [ dt-bot ] >>user-callback
     discord-bot-config set
 
