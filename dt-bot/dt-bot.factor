@@ -10,7 +10,12 @@ IN: dt-bot
         { "name" "dt" }
         { "type" 1 }
         { "description" "Evaluate dt code" }
-        { "options" { H{ { "name" "code" } { "required" t } { "description" "the code to evaluate" } { "type" 3 } } } }
+        { "options" { H{
+            { "name" "code" }
+            { "required" t }
+            { "description" "Code to evaluate. " }
+            { "type" 3 }
+        } } }
     } ;
 
 : user-id-of ( json -- username )
@@ -24,7 +29,7 @@ IN: dt-bot
         [
             4 "type" ,,
             [
-                code-of "Running `%s`………" sprintf
+                [ user-id-of ] [ code-of ] bi "<@%s>'s code: `%s`\nrunning..." sprintf
                 "content" ,,
             ] H{ } make "data" ,,
         ] H{ } make
@@ -35,7 +40,7 @@ IN: dt-bot
 : finalize-response ( json result -- )
     [
         [ dup [ user-id-of ] [ code-of ] bi ] dip
-        "<@%s> ran `%s`, result:\n```\n%s\n```" sprintf
+        "<@%s>'s code: `%s`\n```\n%s\n```" sprintf
         "content" ,,
         [ dup user-id-of 1array "users" ,, ] H{ } make
         "allowed_mentions" ,,
@@ -51,7 +56,7 @@ IN: dt-bot
         "DOCKER_CMD" os-env "docker" or ,
         "run" ,
         "DOCKER_IMAGE" os-env "booniepepper/dt" or ,
-        "drop" , , "quote-all pls quit" ,
+        "drop" , , "pls quit" ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
