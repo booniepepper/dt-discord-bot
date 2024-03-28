@@ -1,9 +1,9 @@
-# [dt](https://dt.plumbing) discord bot
+# [uxn](https://100r.co/site/uxn.html) discord bot
 
 That's what it is.
 
 ```
-/dt [code <your code here>]
+/uxn [code <your code here>]
 ```
 
 # Operator Notes
@@ -30,9 +30,11 @@ Go to the generated URL, select a guild, confirm.
 # Links
 
 * https://discord.com/developers/docs/getting-started
-* https://hub.docker.com/r/booniepepper/dt
+* https://hub.docker.com/r/booniepepper/uxn
 * https://docs.factorcode.org/content/vocab-discord.html
 
 # Etc
 
-Commissioned by [J.R. Hill](https://so.dang.cool/), made by [Val Packett](https://val.packett.cool/).
+Many thanks to [Val Packett](https://val.packett.cool/) for the work on the discord interaction patch
+and the [dt version](https://github.com/booniepepper/dt-discord-bot) of this bot from which this was
+forked.

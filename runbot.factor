@@ -1,14 +1,14 @@
-USING: accessors concurrency.flags discord dt-bot environment kernel namespaces ;
+USING: accessors concurrency.flags discord uxn-bot environment kernel namespaces ;
 IN: runbot
 
 MAIN: [
     discord-bot-config new
     "APPLICATION_ID" os-env >>application-id
     "TOKEN" os-env >>token
-    [ dt-bot ] >>user-callback
+    [ uxn-bot ] >>user-callback
     discord-bot-config set
 
-    dt-bot-command discord-bot-config get application-id>> set-discord-application-command drop
+    uxn-bot-command discord-bot-config get application-id>> set-discord-application-command drop
 
     discord-bot-config get discord-connect
 
