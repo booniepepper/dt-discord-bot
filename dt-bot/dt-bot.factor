@@ -9,11 +9,11 @@ IN: dt-bot
     H{
         { "name" "dt" }
         { "type" 1 }
-        { "description" "Evaluate dt code" }
+        { "description" "evaluate dt code" }
         { "options" { H{
             { "name" "code" }
             { "required" t }
-            { "description" "Code to evaluate. " }
+            { "description" "code to evaluate. " }
             { "type" 3 }
         } } }
     } ;
@@ -56,7 +56,7 @@ IN: dt-bot
         "DOCKER_CMD" os-env "docker" or ,
         "run" ,
         "DOCKER_IMAGE" os-env "booniepepper/dt" or ,
-        "drop" , , "pls quit" ,
+        "drop" , , "quote-all dup len 1 gte? [last pls] swap do? quit" ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
