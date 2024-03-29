@@ -55,7 +55,7 @@ IN: uxn-bot
         "FLATPAK_SANDBOX_DIR" os-env [ "flatpak-spawn" , "--host" , "--directory=/tmp" , ] [ ] if
         "DOCKER_CMD" os-env "docker" or ,
         "run" ,
-        "DOCKER_IMAGE" os-env "booniepepper/uxn" or ,
+        "DOCKER_IMAGE" os-env "booniepepper/uxnbot-discord" or ,
         ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
