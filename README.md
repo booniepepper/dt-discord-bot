@@ -1,9 +1,9 @@
-# [dt](https://dt.plumbing) discord bot
+# [Gforth](https://gforth.org) discord bot
 
 That's what it is.
 
 ```
-/dt [code <your code here>]
+/gforth [code <your code here>]
 ```
 
 # Operator Notes
@@ -30,7 +30,7 @@ Go to the generated URL, select a guild, confirm.
 # Links
 
 * https://discord.com/developers/docs/getting-started
-* https://hub.docker.com/r/booniepepper/dt
+* https://hub.docker.com/r/forthy42/gforth
 * https://docs.factorcode.org/content/vocab-discord.html
 
 # Etc
