@@ -56,9 +56,9 @@ IN: gforth-bot
         "DOCKER_CMD" os-env "docker" or ,
         "run" ,
         "DOCKER_IMAGE" os-env "forthy42/gforth" or ,
-        "gforth -e \"" ,
-        ,
-        "\" -e \"bye\"" ,
+        "gforth" ,
+        "-e" , ,
+        "-e" , "bye" ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
