@@ -2,7 +2,7 @@
 ! See https://factorcode.org/license.txt for BSD license.
 USING: accessors arrays assocs combinators continuations discord discord-patch
 environment formatting hashtables io io.encodings.utf8 io.launcher
-kernel make namespaces prettyprint sequences ;
+kernel make namespaces prettyprint sequences splitting ;
 IN: modal-bot
 
 : modal-bot-command ( -- cmds )
@@ -56,7 +56,7 @@ IN: modal-bot
         "DOCKER_CMD" os-env "docker" or ,
         "run" ,
         "DOCKER_IMAGE" os-env "booniepepper/modal" or ,
-        ,
+        "\\n" "\n" replace ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
