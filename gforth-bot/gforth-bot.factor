@@ -29,7 +29,7 @@ IN: gforth-bot
         [
             4 "type" ,,
             [
-                [ user-id-of ] [ code-of ] bi "<@%s>'s code: `%s`\nrunning..." sprintf
+                [ user-id-of ] [ code-of ] bi "<@%s>'s code:\n```\n%s\n```\nrunning..." sprintf
                 "content" ,,
             ] H{ } make "data" ,,
         ] H{ } make
@@ -40,7 +40,7 @@ IN: gforth-bot
 : finalize-response ( json result -- )
     [
         [ dup [ user-id-of ] [ code-of ] bi ] dip
-        "<@%s>'s code: `%s`\n```\n%s\n```" sprintf
+        "<@%s>'s code:\n```\n%s\n```\noutput:\n```\n%s\n```" sprintf
         "content" ,,
         [ dup user-id-of 1array "users" ,, ] H{ } make
         "allowed_mentions" ,,
