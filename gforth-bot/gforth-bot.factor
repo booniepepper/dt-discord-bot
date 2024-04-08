@@ -58,7 +58,9 @@ IN: gforth-bot
         "DOCKER_IMAGE" os-env "forthy42/gforth" or ,
         "gforth" ,
         "-e" , ,
-        "-e" , "bye" ,
+        "-e" , ": end-status cr .\" ---\" cr .\" values remain on stack \" .s cr ;" ,
+        "-e" , ": end  depth 0 <> if end-status then bye ;" ,
+        "-e" , "end" ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
