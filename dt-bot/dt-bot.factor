@@ -54,7 +54,7 @@ IN: dt-bot
     [
         "FLATPAK_SANDBOX_DIR" os-env [ "flatpak-spawn" , "--host" , "--directory=/tmp" , ] [ ] if
         "DOCKER_CMD" os-env "docker" or ,
-        "run" ,
+        "run" , "--rm" ,
         "DOCKER_IMAGE" os-env "booniepepper/dt" or ,
         "drop \\dt/print-help \\help def" ,
         ,
