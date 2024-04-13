@@ -2,7 +2,7 @@
 ! See https://factorcode.org/license.txt for BSD license.
 USING: accessors arrays assocs combinators continuations discord discord-patch
 environment formatting hashtables io io.encodings.utf8 io.launcher
-kernel make namespaces prettyprint sequences splitting ;
+kernel make namespaces prettyprint sequences ;
 IN: modal-bot
 
 : modal-bot-command ( -- cmds )
@@ -54,9 +54,9 @@ IN: modal-bot
     [
         "FLATPAK_SANDBOX_DIR" os-env [ "flatpak-spawn" , "--host" , "--directory=/tmp" , ] [ ] if
         "DOCKER_CMD" os-env "docker" or ,
-        "run" ,
+        "run" , "--rm" ,
         "DOCKER_IMAGE" os-env "booniepepper/modal" or ,
-        "\\n" "\n" replace ,
+        ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
