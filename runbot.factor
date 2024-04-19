@@ -1,14 +1,14 @@
-USING: accessors concurrency.flags discord gforth-bot environment kernel namespaces ;
+USING: accessors concurrency.flags discord mirth-bot environment kernel namespaces ;
 IN: runbot
 
 MAIN: [
     discord-bot-config new
     "APPLICATION_ID" os-env >>application-id
     "TOKEN" os-env >>token
-    [ gforth-bot ] >>user-callback
+    [ mirth-bot ] >>user-callback
     discord-bot-config set
 
-    gforth-bot-command discord-bot-config get application-id>> set-discord-application-command drop
+    mirth-bot-command discord-bot-config get application-id>> set-discord-application-command drop
 
     discord-bot-config get discord-connect
 

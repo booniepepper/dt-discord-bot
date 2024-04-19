@@ -1,9 +1,9 @@
-# [Gforth](https://gforth.org) discord bot
+# [Mirth](https://github.com/mirth-lang/mirth) discord bot
 
 That's what it is.
 
 ```
-/gforth [code <your code here>]
+/mirth [code <your code here>]
 ```
 
 # Operator Notes

@@ -3,17 +3,17 @@
 USING: accessors arrays assocs combinators continuations discord discord-patch
 environment formatting hashtables io io.encodings.utf8 io.launcher
 kernel make namespaces prettyprint sequences ;
-IN: gforth-bot
+IN: mirth-bot
 
-: gforth-bot-command ( -- cmds )
+: mirth-bot-command ( -- cmds )
     H{
-        { "name" "gforth" }
+        { "name" "mirth" }
         { "type" 1 }
-        { "description" "evaluate gforth code" }
+        { "description" "evaluate mirth code" }
         { "options" { H{
             { "name" "code" }
             { "required" t }
-            { "description" "code to evaluate. " }
+            { "description" "code to evaluate" }
             { "type" 3 }
         } } }
     } ;
@@ -55,24 +55,20 @@ IN: gforth-bot
         "FLATPAK_SANDBOX_DIR" os-env [ "flatpak-spawn" , "--host" , "--directory=/tmp" , ] [ ] if
         "DOCKER_CMD" os-env "docker" or ,
         "run" , "--rm" ,
-        "DOCKER_IMAGE" os-env "forthy42/gforth" or ,
-        "gforth" ,
-        "-e" , ,
-        "-e" , ": end-status cr .\" ---\" cr .\" values remain on stack \" .s cr ;" ,
-        "-e" , ": end  depth 0 <> if end-status then bye ;" ,
-        "-e" , "end" ,
+        "DOCKER_IMAGE" os-env "booniepepper/mirth" or ,
+        ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
 : try-run-code ( expr -- res )
     [ run-code ] [ unparse "error: %s" sprintf swap drop ] recover ;
 
-GENERIC: gforth-bot ( json opcode -- )
+GENERIC: mirth-bot ( json opcode -- )
 
-M: object gforth-bot 2drop ;
+M: object mirth-bot 2drop ;
 
-M: INTERACTION_CREATE gforth-bot
+M: INTERACTION_CREATE mirth-bot
     drop dup "data" of "name" of {
-        { "gforth" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
+        { "mirth" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
         [ "Unknown interaction received '%s'" sprintf gprint-flush drop ]
     } case ;
