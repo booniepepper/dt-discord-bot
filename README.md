@@ -1,9 +1,9 @@
-# [modal](https://git.sr.ht/~rabbits/modal) discord bot
+# [Factor](https://factorcode.org) discord bot
 
 That's what it is.
 
 ```
-/modal [code <your code here>]
+/factor [code <your code here>]
 ```
 
 # Operator Notes

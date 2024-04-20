@@ -3,17 +3,17 @@
 USING: accessors arrays assocs combinators continuations discord discord-patch
 environment formatting hashtables io io.encodings.utf8 io.launcher
 kernel make namespaces prettyprint sequences ;
-IN: modal-bot
+IN: factor-bot
 
-: modal-bot-command ( -- cmds )
+: factor-bot-command ( -- cmds )
     H{
-        { "name" "modal" }
+        { "name" "factor" }
         { "type" 1 }
-        { "description" "evaluate modal code" }
+        { "description" "evaluate factor code" }
         { "options" { H{
             { "name" "code" }
             { "required" t }
-            { "description" "code to evaluate. " }
+            { "description" "code to evaluate" }
             { "type" 3 }
         } } }
     } ;
@@ -55,20 +55,24 @@ IN: modal-bot
         "FLATPAK_SANDBOX_DIR" os-env [ "flatpak-spawn" , "--host" , "--directory=/tmp" , ] [ ] if
         "DOCKER_CMD" os-env "docker" or ,
         "run" , "--rm" ,
-        "DOCKER_IMAGE" os-env "booniepepper/modal" or ,
-        ,
+        "DOCKER_IMAGE" os-env "booniepepper/factor" or ,
+        "factor" ,
+        "-e=USING: accessors arrays assocs combinators continuations ;" ,
+        "-e=USING: formatting hashtables io kernel math prettyprint ;" ,
+        "-e=USING: random sequences ;" ,
+        "-e=%s" sprintf ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
 : try-run-code ( expr -- res )
     [ run-code ] [ unparse "error: %s" sprintf swap drop ] recover ;
 
-GENERIC: modal-bot ( json opcode -- )
+GENERIC: factor-bot ( json opcode -- )
 
-M: object modal-bot 2drop ;
+M: object factor-bot 2drop ;
 
-M: INTERACTION_CREATE modal-bot
+M: INTERACTION_CREATE factor-bot
     drop dup "data" of "name" of {
-        { "modal" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
+        { "factor" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
         [ "Unknown interaction received '%s'" sprintf gprint-flush drop ]
     } case ;
