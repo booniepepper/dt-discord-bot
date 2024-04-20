@@ -59,7 +59,8 @@ IN: factor-bot
         "factor" ,
         "-e=USING: accessors arrays assocs combinators continuations ;" ,
         "-e=USING: formatting hashtables io kernel math prettyprint ;" ,
-        "-e=USING: random sequences ;" ,
+        "-e=USING: random sequences vectors ;" ,
+        "-e=IN: temp" ,
         "-e=%s" sprintf ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
