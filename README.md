@@ -1,9 +1,9 @@
-# [modal](https://git.sr.ht/~rabbits/modal) discord bot
+# [Callisto](https://github.com/callisto-lang) discord bot
 
 That's what it is.
 
 ```
-/modal [code <your code here>]
+/callisto [code <your code here>]
 ```
 
 # Operator Notes
