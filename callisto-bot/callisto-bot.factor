@@ -56,7 +56,7 @@ IN: callisto-bot
         "DOCKER_CMD" os-env "docker" or ,
         "run" , "--rm" ,
         "DOCKER_IMAGE" os-env "booniepepper/callisto" or ,
-        "./eval" ,
+        "eval" ,
         ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
