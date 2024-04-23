@@ -3,13 +3,13 @@
 USING: accessors arrays assocs combinators continuations discord discord-patch
 environment formatting hashtables io io.encodings.utf8 io.launcher
 kernel make namespaces prettyprint sequences ;
-IN: modal-bot
+IN: rye-bot
 
-: modal-bot-command ( -- cmds )
+: rye-bot-command ( -- cmds )
     H{
-        { "name" "modal" }
+        { "name" "rye" }
         { "type" 1 }
-        { "description" "evaluate modal code" }
+        { "description" "evaluate rye code" }
         { "options" { H{
             { "name" "code" }
             { "required" t }
@@ -55,20 +55,20 @@ IN: modal-bot
         "FLATPAK_SANDBOX_DIR" os-env [ "flatpak-spawn" , "--host" , "--directory=/tmp" , ] [ ] if
         "DOCKER_CMD" os-env "docker" or ,
         "run" , "--rm" ,
-        "DOCKER_IMAGE" os-env "booniepepper/modal" or ,
-        ,
+        "DOCKER_IMAGE" os-env "ghcr.io/refaktor/rye" or ,
+        "-do" , ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
 : try-run-code ( expr -- res )
     [ run-code ] [ unparse "error: %s" sprintf swap drop ] recover ;
 
-GENERIC: modal-bot ( json opcode -- )
+GENERIC: rye-bot ( json opcode -- )
 
-M: object modal-bot 2drop ;
+M: object rye-bot 2drop ;
 
-M: INTERACTION_CREATE modal-bot
+M: INTERACTION_CREATE rye-bot
     drop dup "data" of "name" of {
-        { "modal" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
+        { "rye" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
         [ "Unknown interaction received '%s'" sprintf gprint-flush drop ]
     } case ;
