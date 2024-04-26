@@ -2,7 +2,7 @@
 ! See https://factorcode.org/license.txt for BSD license.
 USING: accessors arrays assocs combinators continuations discord discord-patch
 environment formatting hashtables io io.encodings.utf8 io.launcher
-kernel make namespaces prettyprint sequences ;
+kernel make math math.order namespaces prettyprint sequences ;
 IN: modal-bot
 
 : modal-bot-command ( -- cmds )
@@ -24,6 +24,10 @@ IN: modal-bot
 : code-of ( json -- code )
     "data" of "options" of [ "name" of "code" = ] find nip "value" of ;
 
+: trunc ( str n -- shorter )
+    [ dup length ] dip - dup
+    0 < [ drop ] [ tail "..." swap append ] if ;
+
 : respond-ack ( json -- )
     [
         [
@@ -40,7 +44,7 @@ IN: modal-bot
 : finalize-response ( json result -- )
     [
         [ dup [ user-id-of ] [ code-of ] bi ] dip
-        "<@%s>'s code:\n```\n%s\n```\noutput:\n```\n%s\n```" sprintf
+        1000 trunc "<@%s>'s code:\n```\n%s\n```\noutput:\n```\n%s\n```" sprintf
         "content" ,,
         [ dup user-id-of 1array "users" ,, ] H{ } make
         "allowed_mentions" ,,
