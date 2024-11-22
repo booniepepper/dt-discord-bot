@@ -1,9 +1,9 @@
-# [dt](https://dt.plumbing) discord bot
+# vera discord bot
 
 That's what it is.
 
 ```
-/dt [code <your code here>]
+/vera [code <your code here>]
 ```
 
 # Operator Notes
@@ -30,7 +30,7 @@ Go to the generated URL, select a guild, confirm.
 # Links
 
 * https://discord.com/developers/docs/getting-started
-* https://hub.docker.com/r/booniepepper/dt
+* https://hub.docker.com/r/booniepepper/nova-rust
 * https://docs.factorcode.org/content/vocab-discord.html
 
 # Etc
