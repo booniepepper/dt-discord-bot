@@ -3,13 +3,13 @@
 USING: accessors arrays assocs combinators continuations discord discord-patch
 environment formatting hashtables io io.encodings.utf8 io.launcher
 kernel make namespaces prettyprint sequences ;
-IN: dt-bot
+IN: vera-bot
 
-: dt-bot-command ( -- cmds )
+: vera-bot-command ( -- cmds )
     H{
-        { "name" "dt" }
+        { "name" "vera" }
         { "type" 1 }
-        { "description" "evaluate dt code" }
+        { "description" "evaluate vera code (uses nova-rust)" }
         { "options" { H{
             { "name" "code" }
             { "required" t }
@@ -55,22 +55,20 @@ IN: dt-bot
         "FLATPAK_SANDBOX_DIR" os-env [ "flatpak-spawn" , "--host" , "--directory=/tmp" , ] [ ] if
         "DOCKER_CMD" os-env "docker" or ,
         "run" , "--rm" ,
-        "DOCKER_IMAGE" os-env "booniepepper/dt" or ,
-        "drop \\dt/print-help \\help def" ,
+        "DOCKER_IMAGE" os-env "booniepepper/nova-rust" or ,
         ,
-        "quote-all dup len 1 gte? [last pls] swap do? quit" ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
 : try-run-code ( expr -- res )
     [ run-code ] [ unparse "error: %s" sprintf swap drop ] recover ;
 
-GENERIC: dt-bot ( json opcode -- )
+GENERIC: vera-bot ( json opcode -- )
 
-M: object dt-bot 2drop ;
+M: object vera-bot 2drop ;
 
-M: INTERACTION_CREATE dt-bot
+M: INTERACTION_CREATE vera-bot
     drop dup "data" of "name" of {
-        { "dt" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
+        { "vera" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
         [ "Unknown interaction received '%s'" sprintf gprint-flush drop ]
     } case ;
