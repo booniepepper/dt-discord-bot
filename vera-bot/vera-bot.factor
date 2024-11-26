@@ -56,7 +56,7 @@ IN: vera-bot
         "DOCKER_CMD" os-env "docker" or ,
         "run" , "--rm" ,
         "DOCKER_IMAGE" os-env "booniepepper/nova-rust" or ,
-        ,
+        "eval" , ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
