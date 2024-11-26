@@ -1,9 +1,9 @@
-# [modal](https://git.sr.ht/~rabbits/modal) discord bot
+# vera discord bot
 
 That's what it is.
 
 ```
-/modal [code <your code here>]
+/vera [code <your code here>]
 ```
 
 # Operator Notes
@@ -30,7 +30,6 @@ Go to the generated URL, select a guild, confirm.
 # Links
 
 * https://discord.com/developers/docs/getting-started
-* https://git.sr.ht/~rabbits/modal
 * https://docs.factorcode.org/content/vocab-discord.html
 
 # Etc

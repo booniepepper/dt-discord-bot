@@ -3,13 +3,13 @@
 USING: accessors arrays assocs combinators continuations discord discord-patch
 environment formatting hashtables io io.encodings.utf8 io.launcher
 kernel make math math.order namespaces prettyprint sequences ;
-IN: modal-bot
+IN: vera-bot
 
-: modal-bot-command ( -- cmds )
+: vera-bot-command ( -- cmds )
     H{
-        { "name" "modal" }
+        { "name" "vera" }
         { "type" 1 }
-        { "description" "evaluate modal code" }
+        { "description" "evaluate vera code" }
         { "options" { H{
             { "name" "code" }
             { "required" t }
@@ -59,20 +59,20 @@ IN: modal-bot
         "FLATPAK_SANDBOX_DIR" os-env [ "flatpak-spawn" , "--host" , "--directory=/tmp" , ] [ ] if
         "DOCKER_CMD" os-env "docker" or ,
         "run" , "--rm" ,
-        "DOCKER_IMAGE" os-env "booniepepper/modal" or ,
-        ,
+        "DOCKER_IMAGE" os-env "booniepepper/nova-rust" or ,
+        "eval" , ,
     ] { } make
     utf8 [ read-contents ] with-process-reader ;
 
 : try-run-code ( expr -- res )
     [ run-code ] [ unparse "error: %s" sprintf swap drop ] recover ;
 
-GENERIC: modal-bot ( json opcode -- )
+GENERIC: vera-bot ( json opcode -- )
 
-M: object modal-bot 2drop ;
+M: object vera-bot 2drop ;
 
-M: INTERACTION_CREATE modal-bot
+M: INTERACTION_CREATE vera-bot
     drop dup "data" of "name" of {
-        { "modal" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
+        { "vera" [ [ respond-ack ] [ dup code-of try-run-code finalize-response ] bi ] }
         [ "Unknown interaction received '%s'" sprintf gprint-flush drop ]
     } case ;
